@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.java.mapper.MemberMapper" >
+  <resultMap id="BaseResultMap" type="cn.java.entity.Member" >
+    <id column="mid" property="mid" jdbcType="BIGINT" />
+    <result column="mname" property="mname" jdbcType="VARCHAR" />
+    <result column="mgender" property="mgender" jdbcType="INTEGER" />
+    <result column="mage" property="mage" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="memail" property="memail" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    mid, mname, mgender, mage, address, memail
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from member
+    where mid = #{mid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from member
+    where mid = #{mid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="cn.java.entity.Member" >
+    insert into member (mid, mname, mgender, 
+      mage, address, memail
+      )
+    values (#{mid,jdbcType=BIGINT}, #{mname,jdbcType=VARCHAR}, #{mgender,jdbcType=INTEGER}, 
+      #{mage,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{memail,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.java.entity.Member" >
+    insert into member
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mid != null" >
+        mid,
+      </if>
+      <if test="mname != null" >
+        mname,
+      </if>
+      <if test="mgender != null" >
+        mgender,
+      </if>
+      <if test="mage != null" >
+        mage,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="memail != null" >
+        memail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mid != null" >
+        #{mid,jdbcType=BIGINT},
+      </if>
+      <if test="mname != null" >
+        #{mname,jdbcType=VARCHAR},
+      </if>
+      <if test="mgender != null" >
+        #{mgender,jdbcType=INTEGER},
+      </if>
+      <if test="mage != null" >
+        #{mage,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="memail != null" >
+        #{memail,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.java.entity.Member" >
+    update member
+    <set >
+      <if test="mname != null" >
+        mname = #{mname,jdbcType=VARCHAR},
+      </if>
+      <if test="mgender != null" >
+        mgender = #{mgender,jdbcType=INTEGER},
+      </if>
+      <if test="mage != null" >
+        mage = #{mage,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="memail != null" >
+        memail = #{memail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where mid = #{mid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.java.entity.Member" >
+    update member
+    set mname = #{mname,jdbcType=VARCHAR},
+      mgender = #{mgender,jdbcType=INTEGER},
+      mage = #{mage,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      memail = #{memail,jdbcType=VARCHAR}
+    where mid = #{mid,jdbcType=BIGINT}
+  </update>
+  <select id="selectAll" resultType="map">
+  	SELECT * FROM `member`
+  </select>
+</mapper>
